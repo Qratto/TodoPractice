@@ -1,3 +1,18 @@
+def indentation_symbol(func):
+    def wrapper():
+        print("======== \n" + func() + "======== \n")
+        return None
+    return wrapper
+
+def create_task(value):
+    global tasks
+    if not tasks:
+        tasks[1] = value
+        return "Задача создана"
+    current_id = list(tasks.keys())[-1]
+    tasks[f"{int(current_id)+1}"] = value
+    return "Задача создана"
+
 print("Приложение: Todo List")
 
 tasks = {}
@@ -15,7 +30,9 @@ while True:
     if action == 1:
         pass
     elif action == 2:
-        pass
+        print("Введите задача: ", end="")
+        task = input()
+        create_task(task)
     elif action == 3:
         pass
     elif action == 4:

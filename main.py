@@ -1,3 +1,19 @@
+def indentation_symbol(func):
+    def wrapper():
+        print("======== \n" + func() + "======== \n")
+        return None
+    return wrapper
+
+@indentation_symbol
+def view_tasks():
+    global tasks
+    return_text = ""
+    if not tasks:
+        return "Задач нет \n"
+    for i, j in tasks.items():
+        return_text += f"id: {i}, задача: {j} \n"
+    return return_text
+
 print("Приложение: Todo List")
 
 tasks = {}
@@ -13,7 +29,7 @@ while True:
     action = int(input())
 
     if action == 1:
-        pass
+        view_tasks()
     elif action == 2:
         pass
     elif action == 3:

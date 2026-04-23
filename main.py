@@ -1,3 +1,19 @@
+def indentation_symbol_update(func):
+    def wrapper(task_id, task_value):
+        print("======== \n" + func(task_id, task_value)  + "\n" + "======== \n")
+        return None
+    return wrapper
+
+@indentation_symbol_update
+def update_task(task_id, task_value):
+    global tasks
+    if not tasks:
+        return "Задач нет"
+    if not task_id in list(tasks.keys()):
+        return "Такой задачи нет"
+    tasks[task_id] = task_value
+    return "Задача обновлена"
+
 def indentation_symbol_create(func):
     def wrapper(task):
         print("======== \n" + func(task) + "\n" + "======== \n")
@@ -30,7 +46,6 @@ def view_tasks():
         return_text += f"id: {i}, задача: {j} \n"
     return return_text
 
-
 print("Приложение: Todo List")
 
 tasks = {}
@@ -52,7 +67,11 @@ while True:
         task = input()
         create_task(task)
     elif action == 3:
-        pass
+        print("Введите номер задачи: ", end="")
+        task_id = int(input())
+        print("Введите Еновую задачу: ", end="")
+        task_value = input()
+        update_task(task_id, task_value)
     elif action == 4:
         pass
     elif action == 5:

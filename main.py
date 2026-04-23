@@ -1,3 +1,17 @@
+def indentation_symbol_delete(func):
+    def wrapper(task_id):
+        print("======== \n" + func(task_id) + "\n" + "======== \n")
+        return None
+    return wrapper
+
+@indentation_symbol_delete
+def delete_task(task_id):
+    global tasks
+    if not task_id in list(tasks.keys()):
+        return "Такой задачи нет"
+    tasks.pop(task_id)
+    return "Задача удалена"
+
 def indentation_symbol_update(func):
     def wrapper(task_id, task_value):
         print("======== \n" + func(task_id, task_value)  + "\n" + "======== \n")
@@ -73,7 +87,9 @@ while True:
         task_value = input()
         update_task(task_id, task_value)
     elif action == 4:
-        pass
+        print("Введите номер задачи ", end="")
+        task_id = int(input())
+        delete_task(task_id)
     elif action == 5:
         break
     else:
